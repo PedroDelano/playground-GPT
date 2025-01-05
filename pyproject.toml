@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "playground_gpt"
+version = "0.1.0"
+description = "an educational project to build a Language Model from scratch"
+authors = ["Pedro Cavalcanti <pedelano@gmail.com>"]
+readme = "README.md"
+packages = [{include = "playground_gpt"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+structlog = "^24.4.0"
+pydantic = "^2.10.4"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
