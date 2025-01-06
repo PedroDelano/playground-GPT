@@ -10,6 +10,8 @@ packages = [{include = "playground_gpt"}]
 python = "^3.9"
 structlog = "^24.4.0"
 pydantic = "^2.10.4"
+torch = "^2.5.1"
+tiktoken = "^0.8.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.4"

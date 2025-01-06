@@ -45,6 +45,7 @@ First we need to download a large text to be used as reference to the vocabulary
 
 ```python
 import requests
+
 shakespeare_complete = requests.get("https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt").text
 ```
 
@@ -66,3 +67,37 @@ print(encoded_str)
 decoded_str = tokenizer.decode(encoded_str)
 print(decoded_str)
 ```
+
+### Creating a dataset
+
+This will load the entire dataset for testing purposes.
+
+```python
+from playground_gpt.dataset import PlaygroundDataset
+
+# If you want to use tiktoken's BPE. Otherwise, ignore this
+import tiktoken
+tokenizer = tiktoken.get_encoding("gpt2")
+
+ds = PlaygroundDataset(txt=shakespeare_complete, tokenizer=tokenizer, input_size=32, window_size=1)
+
+input_ = tokenizer.decode(ds.input_ids[0].tolist())
+print(input_)
+
+output_ = tokenizer.decode(ds.target_ids[0].tolist())
+print(output_)
+```
+
+This will create a dataloader that can be efficiently used.
+
+```python
+from torch.utils.data import DataLoader
+
+dataloader = DataLoader(ds, batch_size=8, shuffle=True, drop_last=True)
+
+data_iter = iter(dataloader)
+first_batch = next(data_iter)
+print(first_batch)
+```
+
+#### *💡 This is the famous `batch` parameter in training!*
