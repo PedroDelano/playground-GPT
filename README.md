@@ -2,6 +2,8 @@
 
 Welcome to Playground-GPT, an educational project to build a Language Model from scratch! This repository provides a step-by-step guide to understanding and implementing core concepts of Large Language Models. Perfect for learning and experimenting with AI fundamentals.
 
+> This project is all based on the following book: [*Raschka, S. (2024). Build a large language model (From scratch). Simon and Schuster.*](https://www.amazon.com/Build-Large-Language-Model-Scratch/dp/1633437167)
+
 ## Build Stages
 
 ```■◧□□□□□□□□□□ 12.5%``` | Currently working on: Stage 1.1 
