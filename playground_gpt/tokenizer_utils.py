@@ -12,6 +12,11 @@ from .models.vocab import Vocab
 class TokenizerUtils:
     def __init__(self, verbose: bool = True):
         self.verbose = verbose
+        self.special_tokens = {
+            "unk": "<unk>",
+            "start": "<startoftext>",
+            "end": "<endoftext>",
+        }
 
     @staticmethod
     def separate_special_chars_and_digits(word_list):
@@ -48,6 +53,11 @@ class TokenizerUtils:
         splits = text.split()
         tokens = [tk for tk in splits if tk != ""]
         tokens = self.separate_special_chars_and_digits(tokens)
+
+        # inserting the start and end tokens
+        tokens.append(self.special_tokens["end"])
+        tokens.insert(0, self.special_tokens["start"])
+
         if self.verbose is True:
             logger.info(f"Tokenized {len(text)} characters into {len(tokens)} tokens.")
         return tokens
@@ -66,6 +76,20 @@ class TokenizerUtils:
         vocabulary = [
             Vocab(token=tk, token_id=tk_id) for tk_id, tk in enumerate(unique_tokens)
         ]
+
+        # adding the unkown token
+        vocabulary.append(
+            Vocab(token=self.special_tokens["unk"], token_id=len(vocabulary))
+        )
+
+        # adding the start and end tokens
+        vocabulary.append(
+            Vocab(token=self.special_tokens["start"], token_id=len(vocabulary))
+        )
+        vocabulary.append(
+            Vocab(token=self.special_tokens["end"], token_id=len(vocabulary))
+        )
+
         if self.verbose is True:
             logger.info(f"Created a vocabulary of {len(vocabulary)} IDs.")
         return vocabulary

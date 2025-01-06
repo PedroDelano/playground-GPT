@@ -26,7 +26,17 @@ class Tokenizer:
 
     def encode(self, text: str) -> List[int]:
         tokens = self.utils.tokenize(text)
-        return [self.encode_map.get(tk) for tk in tokens]
+        return [
+            self.encode_map.get(
+                tk, self.encode_map.get(self.utils.special_tokens["unk"])
+            )
+            for tk in tokens
+        ]
 
     def decode(self, ids: List[int]) -> List[str]:
-        return [self.decode_map.get(_id) for _id in ids]
+        return [
+            self.decode_map.get(
+                _id, self.decode_map.get(self.utils.special_tokens["unk"])
+            )
+            for _id in ids
+        ]
