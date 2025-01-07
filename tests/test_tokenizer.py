@@ -3,6 +3,7 @@
 # **************************************************************************
 
 import pytest
+
 from playground_gpt.models.vocab import Vocab
 from playground_gpt.tokenizer import Tokenizer
 from playground_gpt.tokenizer_utils import TokenizerUtils
