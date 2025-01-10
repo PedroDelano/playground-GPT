@@ -4,9 +4,9 @@ Welcome to Playground-GPT, an educational project to build a Language Model from
 
 > This project is all based on the following book: [*Raschka, S. (2024). Build a large language model (From scratch). Simon and Schuster.*](https://www.amazon.com/Build-Large-Language-Model-Scratch/dp/1633437167)
 
-## Build Stages
+# Build Stages
 
-```■◧□□□□□□□□□□ 12.5%``` | Currently working on: Stage 1.1 
+## ```◼◼◼▭▭▭▭▭▭▭▭▭ 25%``` | Currently working on: Stage 1.2 
 
 ### Stage 1: Building a LLM 🧱
 
@@ -37,9 +37,9 @@ Specializing our model for specific tasks and applications.
 3.2) Personal Assistant 🤖
 
 
-## Examples
+# Examples
 
-### Tokenizer
+## Tokenizer
 
 First we need to download a large text to be used as reference to the vocabulary.
 
@@ -68,7 +68,7 @@ decoded_str = tokenizer.decode(encoded_str)
 print(decoded_str)
 ```
 
-### Creating a dataset
+## Creating a dataset
 
 This will load the entire dataset for testing purposes.
 
@@ -79,7 +79,7 @@ from playground_gpt.dataset import PlaygroundDataset
 import tiktoken
 tokenizer = tiktoken.get_encoding("gpt2")
 
-ds = PlaygroundDataset(txt=shakespeare_complete, tokenizer=tokenizer, input_size=32, window_size=1)
+ds = PlaygroundDataset(txt=shakespeare_complete, tokenizer=tokenizer, input_size=4, window_size=4)
 
 input_ = tokenizer.decode(ds.input_ids[0].tolist())
 print(input_)
@@ -101,3 +101,17 @@ print(first_batch)
 ```
 
 #### *💡 This is the famous `batch` parameter in training!*
+
+## Embedding
+
+```python
+from playground_gpt.embedding import Embedding
+
+embedder = Embedding(input_size=4, embed_size=256, vocab_size=50257)
+
+abolute_embedding = embedder.embed(first_batch[0])
+print(abolute_embedding.shape)
+
+positional_embedding = embedder.positional_embed(first_batch[0])
+print(positional_embedding.shape)
+```
